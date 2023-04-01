@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img :src="getUrl" alt="">
     <h3 v-if="info.media_type==='movie'">{{ info.title }}</h3>
     <h3 v-else>{{ info.name }}</h3>
     <h4 v-if="info.media_type==='movie'">{{ info.original_title }}</h4>
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import { store } from '../store/store';
 import CountryFlag from "vue-country-flag-next";
 export default {
   name: "CardComponent",
@@ -41,6 +43,9 @@ export default {
           return this.info.original_language;
       }
     },
+    getUrl(){
+        return `${store.apiConfig.imgRoute}${store.apiConfig.poster_sizes.medium}${this.info.poster_path ?? store.apiConfig.posterFallback}`;
+    }
   },
 };
 </script>
