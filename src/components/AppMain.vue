@@ -1,6 +1,10 @@
 <template>
-    <div>
-        <CardComponent v-for="movie in store.movies" :info="movie"/>
+    <div class="container">
+        <div class="row g-5 py-5">
+            <div class="col-4" v-for="movie in store.movies">
+                <CardComponent :info="movie" class="card-clas"/>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -21,5 +25,9 @@ import { store } from '../store/store';
 </script>
 
 <style lang="scss" scoped>
-
+.card-clas {
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgray;
+}
 </style>

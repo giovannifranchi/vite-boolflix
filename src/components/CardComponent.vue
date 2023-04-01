@@ -1,14 +1,26 @@
 <template>
-  <div>
+  <div class="movie-card">
     <img :src="getUrl" alt="">
-    <h3 v-if="info.media_type==='movie'">{{ info.title }}</h3>
-    <h3 v-else>{{ info.name }}</h3>
-    <h4 v-if="info.media_type==='movie'">{{ info.original_title }}</h4>
-    <h4 v-else>{{ info.original_name }}</h4>
-    <CountryFlag :country="handleFlags" size="small" />
-    <div>
-      <font-awesome-icon icon="fa-solid fa-star" v-for="n in getScore" />
-      <font-awesome-icon icon="fa-regular fa-star" v-for="n in 5 - getScore" />
+
+
+    <div class="info-body p-3 d-flex flex-column gap-4 justify-content-center">
+        <h3 v-if="info.media_type==='movie'"><strong>Titolo:</strong>{{ info.title }}</h3>
+        <h3 v-else><strong>Titolo:</strong>{{ info.name }}</h3>
+        <h4 v-if="info.media_type==='movie'"><strong>Titolo Originale:</strong>{{ info.original_title }}</h4>
+        <h4 v-else><strong>Titolo Originale:</strong>{{ info.original_name }}</h4>
+        <div>
+            <strong class="align-middle">Lingua Originale:</strong>
+            <CountryFlag :country="handleFlags" size="medium"  class="ms-1 align-center"/>
+        </div>
+        <div>
+            <strong>Voto:</strong>
+          <font-awesome-icon icon="fa-solid fa-star" v-for="n in getScore" />
+          <font-awesome-icon icon="fa-regular fa-star" v-for="n in 5 - getScore" />
+        </div>
+        <div>
+            <strong>Overview:</strong>
+            {{ info.overview }}
+        </div>
     </div>
   </div>
 </template>
@@ -50,4 +62,30 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.movie-card {
+    position:relative;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+    &:hover > img {
+        opacity: 0;
+        transition: opacity .4s ease-out 4ms;
+        
+    }
+    &:hover > .info-body {
+        opacity: 1;
+    }
+    .info-body {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity .4s ease-in 4ms;
+    }
+}
+
+</style>
