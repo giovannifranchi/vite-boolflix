@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row g-5 py-5">
-            <div class="col-4" v-for="movie in store.movies">
+            <div class="col-12 col-md-6 col-lg-4" v-for="movie in store.movies">
                 <CardComponent :info="movie" class="card-clas"/>
             </div>
         </div>
@@ -29,5 +29,7 @@ import { store } from '../store/store';
     height: 100%;
     width: 100%;
     border: 1px solid lightgray;
+    background-color: #fff;
+    // TODO: add overflow hidden or ellipsis to info.overview
 }
 </style>

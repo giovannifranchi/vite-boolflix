@@ -14,11 +14,6 @@ import axios from 'axios';
         store
       }
     },
-    computed:{
-      handleKeyWord(){
-        return store.searchKeyword.replace(' ', '%20');
-      }
-    },
     methods: {
       searchMovie(){
         axios.get(store.apiConfig.url,{

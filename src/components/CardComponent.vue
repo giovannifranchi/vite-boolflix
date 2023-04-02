@@ -3,7 +3,7 @@
     <img :src="getUrl" alt="">
 
 
-    <div class="info-body p-3 d-flex flex-column gap-4 justify-content-center">
+    <div class="info-body p-3 d-flex flex-column gap-2">
         <h3 v-if="info.media_type==='movie'"><strong>Titolo:</strong>{{ info.title }}</h3>
         <h3 v-else><strong>Titolo:</strong>{{ info.name }}</h3>
         <h4 v-if="info.media_type==='movie'"><strong>Titolo Originale:</strong>{{ info.original_title }}</h4>
@@ -18,8 +18,11 @@
           <font-awesome-icon icon="fa-regular fa-star" v-for="n in 5 - getScore" />
         </div>
         <div>
-            <strong>Overview:</strong>
-            {{ info.overview }}
+            <strong>Cast:</strong>
+            {{ getActors }}
+        </div>
+        <div class="overview h-auto h-md-25 overflow-auto pe-1">
+            <p>{{ info.overview}}</p>
         </div>
     </div>
   </div>
@@ -28,6 +31,7 @@
 <script>
 import { store } from '../store/store';
 import CountryFlag from "vue-country-flag-next";
+import axios from 'axios';
 export default {
   name: "CardComponent",
   props: {
@@ -38,6 +42,11 @@ export default {
   },
   components: {
     CountryFlag,
+  },
+  data(){
+    return {
+        cast: [],
+    }
   },
   computed: {
     getScore() {
@@ -57,8 +66,26 @@ export default {
     },
     getUrl(){
         return `${store.apiConfig.imgRoute}${store.apiConfig.poster_sizes.medium}${this.info.poster_path ?? store.apiConfig.posterFallback}`;
+    },
+    getActors(){
+        const actorNames = [];
+        this.cast.forEach((obj)=>{
+            actorNames.push(obj.name);
+        });
+        return actorNames.join(', ');
     }
   },
+  mounted(){
+    axios.get(`${store.apiConfig.urlCast}/movie/${this.info.id}/credits`, {
+        params: {
+            api_key: store.apiConfig.api_key,
+        }
+    })
+    .then((result)=> {
+        this.cast = result.data.cast.slice(0,5);
+        console.log(this.cast);
+    })
+  }
 };
 </script>
 
@@ -86,6 +113,7 @@ export default {
         opacity: 0;
         transition: opacity .4s ease-in 4ms;
     }
+
 }
 
 </style>
