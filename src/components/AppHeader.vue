@@ -1,5 +1,5 @@
 <template>
-    <AppNavbar :logoImg="logoSrc" @search="$emit('searchHandle')" @changeSelect="$emit('changeSelect')"/>
+    <AppNavbar :logoImg="logoSrc" @search="$emit('searchHandle')"/>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ import AppNavbar from './AppNavbar.vue';
         emits: ['searchHandle', 'changeSelect'],
         data(){
             return {
-                logoSrc: 'src/assets/img/logo-netflix.png'
+                logoSrc: 'https://image.tmdb.org/t/p/w342/wwemzKWzjKYJFfCeiB57q3r4Bcm.png'
             }
         }
     }

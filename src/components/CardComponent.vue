@@ -4,13 +4,11 @@
 
 
     <div class="info-body p-3 d-flex flex-column gap-2">
-        <h3 v-if="info.media_type==='movie'"><strong>Titolo:</strong>{{ info.title }}</h3>
-        <h3 v-else><strong>Titolo:</strong>{{ info.name }}</h3>
-        <h4 v-if="info.media_type==='movie'"><strong>Titolo Originale:</strong>{{ info.original_title }}</h4>
-        <h4 v-else><strong>Titolo Originale:</strong>{{ info.original_name }}</h4>
-        <div>
+        <h3><strong>Titolo:</strong>{{ info.title || info.name }}</h3>
+        <h4><strong>Titolo Originale:</strong>{{ info.original_title || info.original_name }}</h4>
+        <div class="d-flex align-items-center">
             <strong class="align-middle">Lingua Originale:</strong>
-            <CountryFlag :country="handleFlags" size="medium"  class="ms-1 align-center"/>
+            <CountryFlag :country="handleFlags" size="medium"  class="ms-1 align-self-center"/>
         </div>
         <div>
             <strong>Voto:</strong>
@@ -72,10 +70,14 @@ export default {
         this.cast.forEach((obj)=>{
             actorNames.push(obj.name);
         });
-        return actorNames.join(', ');
+        if(actorNames.length > 0){
+          return actorNames.join(', ');
+        }else{
+          return 'N.A.';
+        }
     }
   },
-  mounted(){
+  created(){
     axios.get(`${store.apiConfig.urlCast}/movie/${this.info.id}/credits`, {
         params: {
             api_key: store.apiConfig.api_key,
@@ -83,6 +85,9 @@ export default {
     })
     .then((result)=> {
         this.cast = result.data.cast.slice(0,5);
+    })
+    .catch(()=> {
+      console.log('not found in cast')
     })
   }
 };
