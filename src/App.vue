@@ -25,14 +25,18 @@ import axios from 'axios';
         })
         .then((result)=> {
           store.movies = result.data.results;
+          store.filteredMovies = store.movies;
+          if(store.inputGenr !== 'none'){
+            this.filterMovies();
+          }
           store.searchKeyword = '';
         })
       },
       filterMovies(){
-        store.movies = store.movies.filter((movie)=>{
+        store.filteredMovies = store.movies.filter((movie)=>{
           return movie.genre_ids.includes(store.inputGenr);
         });
-        console.log(store.movies);
+        console.log(store.filteredMovies);
       }
     }
   }
