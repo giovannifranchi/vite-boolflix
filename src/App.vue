@@ -45,6 +45,8 @@ export default {
           console.log(store.tv);
           store.isSearchTvBusy = false;
         });
+        store.hasSearched++
+        store.currentSearch = store.searchKeyword;
         store.searchKeyword = '';
     },
   },

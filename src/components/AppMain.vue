@@ -1,6 +1,14 @@
 <template>
   <div class="container">
     <div class="row g-5 py-5" v-if="getResults.length > 0 && !isBusy">
+      <div v-if="store.hasSearched > 1">
+        <div type="button" class="btn btn-primary position-relative active">
+          {{ store.currentSearch }}
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ getResults.length }}
+          </span>
+        </div>
+      </div>
       <div class="col-12 col-md-6 col-lg-4 card-col" v-for="movie in getResults">
         <CardFlipComponent :info="movie" />
       </div>
