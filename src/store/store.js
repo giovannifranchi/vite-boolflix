@@ -24,8 +24,6 @@ export const store = reactive({
     },
     movies: [],
     tv: [],
-    filteredMovies: [],
     searchKeyword: '',
     inputGenr: '',
-    isSearchBusy: false,
 })
