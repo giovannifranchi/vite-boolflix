@@ -1,12 +1,11 @@
 <template>
-    <SelectComponent @change-select="changeSelect"/>
   <div class="container">
-    <div class="row g-5 py-5" v-if="getResults.length > 0 && !store.isSearchBusy">
+    <div class="row g-5 py-5" v-if="getResults.length > 0 && !isBusy">
       <div class="col-12 col-md-6 col-lg-4 card-col" v-for="movie in getResults">
         <CardFlipComponent :info="movie" />
       </div>
     </div>
-    <div v-else-if="store.isSearchBusy">
+    <div v-else-if="isBusy">
         spinner
     </div>
     <div v-else> not found</div>
@@ -14,7 +13,6 @@
 </template>
 
 <script>
-import SelectComponent from "./SelectComponent.vue";
 import CardComponent from "./CardComponent.vue";
 import CardFlipComponent from "./CardFlipComponent.vue";
 import { store } from "../store/store";
@@ -23,7 +21,6 @@ export default {
   components: {
     CardComponent,
     CardFlipComponent,
-    SelectComponent
   },
   data() {
     return {
@@ -33,21 +30,23 @@ export default {
   },
   computed: {
     getResults(){
-        const results = [...store.movies, ...store.tv]
-        if(!this.isFilter || store.inputGenr === 'none'){
+        const results = [...store.movies, ...store.tv];
+        if(!store.isFiltered || store.inputGenr === 'none'){
             return results
         }else {
             return results.filter((result)=> {
                 return result.genre_ids.includes(store.inputGenr);
             })
         }
+    },
+    isBusy(){
+        if(!store.isSearchMovieBusy && !store.isSearchTvBusy){
+            return false;
+        }else {
+            return true;
+        }
     }
   },
-  methods: {
-    changeSelect(){
-        this.isFilter = true;
-    }
-  }
 };
 </script>
 

@@ -15,34 +15,39 @@ export default {
     };
   },
   methods: {
-    searchMovie() {
+    searchMovie(queryParam = store.searchKeyword) {
       axios
         .get(store.apiConfig.url + store.apiConfig.gettersPath.pathMovies, {
           params: {
             api_key: store.apiConfig.api_key,
             language: store.apiConfig.defaultLanguage,
-            query: store.searchKeyword,
+            query: queryParam,
           },
         })
         .then((result) => {
           store.movies = result.data.results;
           store.filteredMovies = store.movies;
+          store.isSearchMovieBusy = false;
         });
       axios
         .get(store.apiConfig.url + store.apiConfig.gettersPath.pathTv, {
           params: {
             api_key: store.apiConfig.api_key,
             language: store.apiConfig.defaultLanguage,
-            query: store.searchKeyword,
+            query: queryParam,
           },
         })
         .then((result) => {
           store.tv = result.data.results;
           console.log(store.movies);
           console.log(store.tv);
+          store.isSearchTvBusy = false;
         });
     },
   },
+  created(){
+    this.searchMovie(store.apiConfig.defaultSearch);
+  }
 };
 </script>
 

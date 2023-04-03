@@ -12,6 +12,7 @@ export const store = reactive({
         defaultLanguage: 'it-IT',
         imgRoute: 'https://image.tmdb.org/t/p/',
         posterFallback: "/z6fUdAWIqSenjIYsPmRltaGHcTq.jpg",
+        defaultSearch: 'ritorno',
         poster_sizes: {
             xxSmall: 'w92',
             xSmall: 'w154',
@@ -26,4 +27,7 @@ export const store = reactive({
     tv: [],
     searchKeyword: '',
     inputGenr: '',
+    isFiltered: false,
+    isSearchMovieBusy: true,
+    isSearchTvBusy: true,
 })

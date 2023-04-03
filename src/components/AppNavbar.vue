@@ -1,14 +1,13 @@
 <template>
   <nav class="navbar bg-dark py-3" data-bs-theme="dark">
-    <div class="container">
+    <div class="container gap-3">
       <a class="navbar-brand">
-        <img :src="logoImg" alt="Logo" width="70" height="40">
+        <img :src="logoImg" alt="Logo" width="150" height="40">
       </a>
-      <!-- <SelectComponent @change-select="$emit('changeSelect')"/> -->
-      <div class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="store.searchKeyword"/>
-        <button class="btn btn-outline-success" type="button" @click="$emit('search')">Search</button>
+      <div class="d-flex flex-grow-1" role="search">
+        <input class="form-control me-2 search-nav" type="search" placeholder="Search" aria-label="Search" v-model="store.searchKeyword" @keyup.enter="$emit('search')"/>
       </div>
+      <SelectComponent class="w-auto"/>
     </div>
   </nav>
 </template>
@@ -27,7 +26,7 @@ export default {
     components: {
         SelectComponent
     },
-    emits: ['search', 'changeSelect'],
+    emits: ['search'],
     data(){
         return {
             store
@@ -36,4 +35,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
