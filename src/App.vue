@@ -27,13 +27,19 @@ import axios from 'axios';
           store.movies = result.data.results;
           store.searchKeyword = '';
         })
+      },
+      filterMovies(){
+        store.movies = store.movies.filter((movie)=>{
+          return movie.genre_ids.includes(store.inputGenr);
+        });
+        console.log(store.movies);
       }
     }
   }
 </script>
 
 <template>
-  <AppHeaderVue @searchHandle="searchMovie"/>
+  <AppHeaderVue @searchHandle="searchMovie" @changeSelect="filterMovies"/>
   <AppMain/>
 </template>
 

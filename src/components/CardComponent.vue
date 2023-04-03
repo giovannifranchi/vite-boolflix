@@ -83,7 +83,6 @@ export default {
     })
     .then((result)=> {
         this.cast = result.data.cast.slice(0,5);
-        console.log(this.cast);
     })
   }
 };

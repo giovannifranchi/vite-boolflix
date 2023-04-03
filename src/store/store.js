@@ -2,6 +2,7 @@ import { reactive } from "vue";
 
 export const store = reactive({
     apiConfig: {
+        urlGenrs: 'https://api.themoviedb.org/3/genre/movie/list?api_key=a847ea9395b412949d66a6859540cccd',
         url: 'https://api.themoviedb.org/3/search/multi',
         urlCast: 'https://api.themoviedb.org/3',
         api_key: 'a847ea9395b412949d66a6859540cccd',
@@ -19,6 +20,7 @@ export const store = reactive({
         }
     },
     movies: [],
+    filteredMovies: [],
     searchKeyword: '',
-    inputLanguage: '',
+    inputGenr: ''
 })

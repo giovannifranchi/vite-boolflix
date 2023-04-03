@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row g-5 py-5">
+        <div class="row g-5 py-5" v-if="store.movies.length > 0">
             <div class="col-12 col-md-6 col-lg-4" v-for="movie in store.movies">
                 <CardComponent :info="movie" class="card-clas"/>
             </div>
