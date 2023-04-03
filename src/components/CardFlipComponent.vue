@@ -83,7 +83,7 @@ export default {
   },
   created() {
     axios
-      .get(`${store.apiConfig.urlCast}/movie/${this.info.id}/credits`, {
+      .get(`${store.apiConfig.url}/movie/${this.info.id}/credits`, {
         params: {
           api_key: store.apiConfig.api_key,
         },

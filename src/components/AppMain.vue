@@ -1,7 +1,8 @@
 <template>
+
   <div class="container">
-    <div class="row g-5 py-5" v-if="store.movies.length > 0 && !store.isSearchBusy">
-      <div class="col-12 col-md-6 col-lg-4 card-col" v-for="movie in store.movies">
+    <div class="row g-5 py-5" v-if="getResults.length > 0 && !store.isSearchBusy">
+      <div class="col-12 col-md-6 col-lg-4 card-col" v-for="movie in getResults">
         <CardFlipComponent :info="movie" />
       </div>
     </div>
@@ -27,6 +28,11 @@ export default {
       store,
     };
   },
+  computed: {
+    getResults(){
+        return [...store.movies, ...store.tv];
+    }
+  }
 };
 </script>
 
