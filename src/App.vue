@@ -16,6 +16,8 @@ export default {
   },
   methods: {
     searchMovie(queryParam = store.searchKeyword) {
+      store.isSearchTvBusy = true;
+      store.isSearchMovieBusy = true;
       axios
         .get(store.apiConfig.url + store.apiConfig.gettersPath.pathMovies, {
           params: {
@@ -43,6 +45,7 @@ export default {
           console.log(store.tv);
           store.isSearchTvBusy = false;
         });
+        store.searchKeyword = '';
     },
   },
   created(){

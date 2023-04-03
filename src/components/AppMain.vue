@@ -6,9 +6,11 @@
       </div>
     </div>
     <div v-else-if="isBusy">
-        spinner
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
-    <div v-else> not found</div>
+    <div v-else>No Results Found...</div>
   </div>
 </template>
 
@@ -29,23 +31,23 @@ export default {
     };
   },
   computed: {
-    getResults(){
-        const results = [...store.movies, ...store.tv];
-        if(!store.isFiltered || store.inputGenr === 'none'){
-            return results
-        }else {
-            return results.filter((result)=> {
-                return result.genre_ids.includes(store.inputGenr);
-            })
-        }
+    getResults() {
+      const results = [...store.movies, ...store.tv];
+      if (!store.isFiltered || store.inputGenr === "none") {
+        return results;
+      } else {
+        return results.filter((result) => {
+          return result.genre_ids.includes(store.inputGenr);
+        });
+      }
     },
-    isBusy(){
-        if(!store.isSearchMovieBusy && !store.isSearchTvBusy){
-            return false;
-        }else {
-            return true;
-        }
-    }
+    isBusy() {
+      if (!store.isSearchMovieBusy && !store.isSearchTvBusy) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
 };
 </script>
